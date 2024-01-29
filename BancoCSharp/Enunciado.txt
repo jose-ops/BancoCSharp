@@ -1,0 +1,17 @@
+1* Ser possivel criar uma conta corrente 
+2* Ser possivel criar uma conta Poupança
+3* Ser possivel criar uma conta Investimento
+4* Ser possivel Efetuar um deposito
+5* Ser possivel Efetuar um saque
+6* Ser possivel Efetuar uma transferencia
+7* Ser possivel consultar o saldo 
+
+8* Nao deve ser possivel criar uma conta bancaria sem tipo 
+9* Cada tipo de conta possa iomplementar de forma diferente o metodo imprimirExtrato
+
+10* Ser possivel visualizar as movimentações bancarias
+ 10.1* Uma classe que represente a minha movimentação
+ 10.2* Uma lista para armazenar essas movimentações
+ 10.3* Uma ofrma de saber, de forma simples qujal o tipo da movimentação
+ 10.4* Um Layout para apresentar a movimentação quando for pedida.
+ 10.5 Criar uma ogica paar criar um layout
