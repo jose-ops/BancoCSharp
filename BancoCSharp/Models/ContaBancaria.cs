@@ -9,19 +9,22 @@ namespace BancoCSharp.Models
 
         public Titular Titular { get; set; }
         public double Saldo { get; private set; }
+        public double ChequeSpecial { get; set; }
         public DateTime DataAbertura { get; private set; }
         protected List<Movimentacao> Movimentacoes { get; set; }
 
 
         protected readonly double VALOR_MINIMO = 10.0;//  protected o filho pode alterado de alguma forma 
+        private double saldoAbertura;
         #endregion
 
         #region Construtor
-        public ContaBancaria(Titular titular, double saldoAbertura)
+        public ContaBancaria(Titular titular, double saldoAbertura, double chequeSpecial)
         {
             Titular = titular;
             Saldo = saldoAbertura;
             DataAbertura = DateTime.Now;
+            ChequeSpecial = chequeSpecial;
 
             Movimentacoes = new List<Movimentacao>()
             {
@@ -37,11 +40,17 @@ namespace BancoCSharp.Models
             Titular = titular;
             Saldo = 0;
             DataAbertura = DateTime.Now;
+            ChequeSpecial = 500;
 
             Movimentacoes = new List<Movimentacao>()
             {
                new Movimentacao(eTipoMovimentacao.ABERTURA_CONTA, Saldo)
             };
+        }
+
+        public ContaBancaria(Titular titular, double saldoAbertura) : this(titular)
+        {
+            this.saldoAbertura = saldoAbertura;
         }
         #endregion
 
@@ -66,7 +75,8 @@ namespace BancoCSharp.Models
             }
             else if (valor > Saldo)
             {
-                throw new Exception("Saldo insulficiente para Saque, Saldo atual R$" + Saldo);
+                //throw new Exception("Saldo insulficiente para Saque, Saldo atual R$" + Saldo);
+                ChequeEspecial(valor);
             }
 
             Saldo -= valor;
@@ -84,7 +94,7 @@ namespace BancoCSharp.Models
             }
             else if (valor > Saldo)
             {
-                throw new Exception();
+                ChequeEspecial(valor);
             };
 
             contaDestino.Depositar(valor);
@@ -92,6 +102,16 @@ namespace BancoCSharp.Models
             Movimentacoes.Add(new Movimentacao(eTipoMovimentacao.TRASNFERENCIA, valor));
 
         }
+
+        public void ChequeEspecial(double valor)
+        {
+
+            ChequeSpecial -= valor;
+            var novovalor = ChequeSpecial;
+            Movimentacoes.Add(new Movimentacao(eTipoMovimentacao.CHEQUE_ESPECIAL, valor));
+
+        }
+
 
         public abstract void ImprimirExtrato();
 

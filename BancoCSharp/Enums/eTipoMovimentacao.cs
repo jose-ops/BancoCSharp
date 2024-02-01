@@ -12,6 +12,7 @@ namespace BancoCSharp.Enums
         SAQUE,
         DEPOSITO,
         TRASNFERENCIA,
+        CHEQUE_ESPECIAL
 
     }
 }

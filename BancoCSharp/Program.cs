@@ -28,13 +28,13 @@ var conta2 = new ContaInvestimento(titular02);
 var conta3 = new ContaPoupanca(titular02);
 
 
-conta1.Depositar(50.0);
+conta1.Sacar(50.0);
 
-conta2.Depositar(500.0);
-conta2.Sacar(100.0);
-conta2.Transferir(conta3, 100.0);
+//conta2.Depositar(500.0);
+//conta2.Sacar(1000.0);
+//conta2.Transferir(conta3, 100.0);
 
-conta3.Sacar(25.0);
+//conta3.Sacar(25.0);
 
 conta1.ImprimirExtrato();
 conta2.ImprimirExtrato();
