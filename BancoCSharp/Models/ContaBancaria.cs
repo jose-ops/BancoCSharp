@@ -64,8 +64,17 @@ namespace BancoCSharp.Models
             {
                 throw new Exception("O valor minimo para deposito é R$" + VALOR_MINIMO);
             }
-            if (ValorNegativado)
+            if (ChequeEspecial < 500)
             {
+                do
+                {
+                    valor--;
+                    ChequeEspecial++;
+                    if(valor == 0)
+                    {
+                        
+                    }
+                } while (ChequeEspecial <= 500);
                 
             }
             else
@@ -117,7 +126,8 @@ namespace BancoCSharp.Models
         public void UsarChequeEspecial(double valor)
         {
             ChequeEspecial -= valor ;
-            var ValorNegativado = (double)decimal.Negate((decimal)ChequeEspecial);
+            var ValorNegativado = (double)decimal.Negate((decimal)valor);
+            Movimentacoes.Add(new Movimentacao(eTipoMovimentacao.CHEQUE_ESPECIAL, (double)decimal.Negate((decimal)ValorNegativado)));
         }
 
         public abstract void ImprimirExtrato();
